@@ -1,0 +1,30 @@
+ARG base_image=ghcr.io/trilinos/dependencies-cuda:latest
+
+FROM ${base_image}
+
+ARG BRANCH=develop
+
+RUN git clone -b ${BRANCH} https://github.com/trilinos/Trilinos.git /workspace/trilinos/source
+
+RUN git clone https://github.com/kokkos/kokkos-tools.git /workspace/kokkos-tools/source
+
+ENV TRILINOS_DIR=/workspace/trilinos/source \
+    TRILINOS_BUILD_DIR=/workspace/trilinos/build \
+    TRILINOS_INSTALL_DIR=/workspace/trilinos/install \
+    KOKKOS_TOOLS_DIR=/workspace/kokkos-tools/source \
+    KOKKOS_TOOLS_BUILD_DIR=/workspace/kokkos-tools/build \
+    KOKKOS_TOOLS_INSTALL_DIR=/workspace/kokkos-tools/install \
+    PYTHONPATH=/workspace/trilinos/build/packages/PyTrilinos2
+
+SHELL ["/bin/bash", "-c"]
+
+RUN mkdir -p $TRILINOS_BUILD_DIR && \
+    mkdir -p $KOKKOS_TOOLS_BUILD_DIR
+
+COPY . /scripts
+
+RUN source /scripts/commandsDevContainer.sh && \
+    configure_trilinos && \
+    build_trilinos && \
+    configure_kokkos_tools && \
+    build_kokkos_tools
