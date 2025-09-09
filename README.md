@@ -1,4 +1,10 @@
-# Trilinos in a container
+# Trilinos tutorial at ICPP 2025
+
+- [Slides](https://github.com/trilinos/icpp/blob/main/slides.pdf)
+- [Tutorial for distributed linear algebra - Tpetra](https://docs.trilinos.org/dev/packages/tpetra/doc/html/index.html)
+- [Hands-on instructions for linear solver - Belos, Ifpack2, MueLu](https://github.com/trilinos/icpp/blob/main/lesson/lesson.md)
+
+# Images
 
 This repository contains Dockerfiles for two images:
 
