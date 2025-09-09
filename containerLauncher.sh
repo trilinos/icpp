@@ -65,7 +65,7 @@ fi
 ##################################################
 # podman run arguments
 # commands that are run inside the container
-LAUNCH_COMMANDS+=("mkdir -p \${WORKSPACE} && cd \${WORKSPACE}")
+LAUNCH_COMMANDS+=("cd \${WORKSPACE}")
 
 ##################################################
 # Map certificates from host into container
@@ -207,7 +207,7 @@ LAUNCH_COMMANDS+=("bash")
 
 POSITIONAL_ARGS=()
 
-${EXECUTABLE} container exists ${CONTAINER_NAME}
+${EXECUTABLE} container inspect ${CONTAINER_NAME} > /dev/null
 if [ $? -ne 0 ]; then
     CONTAINER_EXISTS=false
 else
